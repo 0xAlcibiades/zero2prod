@@ -1,4 +1,4 @@
-use actix_web::{post, HttpResponse, Responder, web};
+use actix_web::{post, web, HttpResponse, Responder};
 
 #[derive(serde::Deserialize)]
 struct FormData {

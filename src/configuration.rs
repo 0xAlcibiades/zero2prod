@@ -21,7 +21,7 @@ impl DatabaseSettings {
 #[derive(serde::Deserialize)]
 pub struct Settings {
     pub database: DatabaseSettings,
-    pub application_port: u16
+    pub application_port: u16,
 }
 
 pub fn get_configuration() -> Result<Settings, config::ConfigError> {

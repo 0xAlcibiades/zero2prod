@@ -1,6 +1,6 @@
-use std::net::TcpListener;
 use actix_web::dev::Server;
 use actix_web::{App, HttpServer};
+use std::net::TcpListener;
 
 use crate::routes::*;
 
