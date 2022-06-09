@@ -13,6 +13,8 @@ path = "src/lib.rs"
 actix-web = "4.0.1"
 config = "0.11"
 serde = { version = "1", features = ["derive"]}
+uuid = { version = "0.8.1", features = ["v4"] }
+chrono = "0.4.15"
 
 [dependencies.sqlx]
 version = "0.5.7"
