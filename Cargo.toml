@@ -22,6 +22,7 @@ tracing-bunyan-formatter = "0.3"
 tracing-futures = "0.2.5"
 tracing-log = "0.1.3"
 tracing-actix-web = "0.5.1"
+serde-aux = "3.0.1"
 
 [dependencies.sqlx]
 version = "0.5.7"
@@ -32,7 +33,8 @@ features = [
     "postgres",
     "uuid",
     "chrono",
-    "migrate"
+    "migrate",
+    "offline"
 ]
 
 [dev-dependencies]
