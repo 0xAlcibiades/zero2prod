@@ -34,21 +34,10 @@ impl DatabaseSettings {
     }
 
     pub fn with_db(&self) -> PgConnectOptions {
-        self.without_db().database(&self.database_name)
-    }
-}
-
-impl DatabaseSettings {
-    pub fn without_db(&self) -> PgConnectOptions {
-        PgConnectOptions::new()
-            .host(&self.host)
-            .username(&self.username)
-            .password(&self.password)
-            .port(self.port)
-    }
-
-    pub fn with_db(&self) -> &mut PgConnectOptions {
-        self.without_db().database(&self.database_name).log_statements(log::LevelFilter::Trace)
+        // TODO(Bug in chapter 5 of book here)
+        let mut options = self.without_db().database(&self.database_name);
+        options.log_statements(tracing::log::LevelFilter::Trace);
+        options
     }
 }
 
