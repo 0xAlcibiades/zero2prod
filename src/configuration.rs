@@ -1,7 +1,7 @@
 use serde_aux::field_attributes::deserialize_number_from_string;
 use sqlx::postgres::{PgConnectOptions, PgSslMode};
-use std::convert::{TryFrom, TryInto};
 use sqlx::ConnectOptions;
+use std::convert::{TryFrom, TryInto};
 
 // All this seems a bit much rather than just using a few environment variables.
 
