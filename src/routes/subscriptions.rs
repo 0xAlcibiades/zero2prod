@@ -71,4 +71,6 @@ pub async fn insert_subscriber(
         // We will talk about error handling in depth later!
     })?;
     Ok(())
+
+    // license
 }
