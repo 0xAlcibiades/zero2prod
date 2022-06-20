@@ -57,7 +57,7 @@ jobs:
 
       - name: Install sqlx-cli
         uses: actions-rs/cargo@v1
-        # if: steps.cache-sqlx.outputs.cache-hit == false
+        if: steps.cache-sqlx.outputs.cache-hit == false
         with:
           command: install
           args: >
