@@ -1,7 +1,6 @@
 use crate::domain::{NewSubscriber, SubscriberEmail, SubscriberName};
 use actix_web::{post, web, HttpResponse};
 use chrono::Utc;
-use sqlx::types::uuid;
 use sqlx::PgPool;
 use std::convert::{TryFrom, TryInto};
 use uuid::Uuid;
