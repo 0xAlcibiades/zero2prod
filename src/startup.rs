@@ -1,5 +1,6 @@
 use crate::email_client::EmailClient;
 use actix_web::dev::Server;
+use actix_web::web::Data;
 use actix_web::{web, App, HttpServer};
 use sqlx::PgPool;
 use std::net::TcpListener;
@@ -41,7 +42,12 @@ impl Application {
         );
         let listener = TcpListener::bind(&address)?;
         let port = listener.local_addr().unwrap().port();
-        let server = run(listener, connection_pool, email_client)?;
+        let server = run(
+            listener,
+            connection_pool,
+            email_client,
+            configuration.application.base_url,
+        )?;
 
         // We "save" the bound port in one of `Application`'s fields
         Ok(Self { port, server })
@@ -64,20 +70,28 @@ pub fn get_connection_pool(configuration: &DatabaseSettings) -> PgPool {
         .connect_lazy_with(configuration.with_db())
 }
 
+// Workaround for type based data retrieval
+#[derive(Debug)]
+pub struct ApplicationBaseUrl(pub String);
+
 pub fn run(
     listener: TcpListener,
     db_pool: PgPool,
     email_client: EmailClient,
+    base_url: String,
 ) -> Result<Server, std::io::Error> {
     let db_pool = web::Data::new(db_pool);
     let email_client = web::Data::new(email_client);
+    let base_url = Data::new(ApplicationBaseUrl(base_url));
     let server = HttpServer::new(move || {
         App::new()
             .wrap(TracingLogger::default())
             .service(health_check)
             .service(subscribe)
+            .service(confirm)
             .app_data(email_client.clone())
             .app_data(db_pool.clone())
+            .app_data(base_url.clone())
     })
     .listen(listener)?
     .run();
