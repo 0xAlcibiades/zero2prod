@@ -57,6 +57,7 @@ jobs:
 
       - name: Install sqlx-cli
         uses: actions-rs/cargo@v1
+        # TODO(This fails, and should perhaps just check if the binary is installed)
         if: steps.cache-sqlx.outputs.cache-hit == false
         with:
           command: install
